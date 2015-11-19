@@ -72,7 +72,10 @@ Route::get('/bands', function(){
     return view('bands.index')->with('bands', $bands);
 });
 
-Route::get('/bands{name}', function($name){
 
-   return sprintf ('Band #%d', $name);
+
+Route::get('/bands/{name}', function($name){
+    $band = Vinyl\Band::with('albums')->whereName($name)->first();
+
+    return view('bands.band')->with('band', $band)->with('albums', $band->albums);
 });
