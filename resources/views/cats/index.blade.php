@@ -5,7 +5,7 @@
     @endif
     <h2>
         All @if (isset($breed)){{ $breed->name }}@endif Cats
-        <a href="{{ url('cats/create') }}" class="btn btn-primary
+        <a href="{{ url('bands/create') }}" class="btn btn-primary
 pull-right">
             Add a new cat
         </a>

@@ -5,7 +5,7 @@
     @endif
     <h2>
           All Bands
-        <a href="{{ url('cats/create') }}" class="btn btn-primary pull-right">
+        <a href="{{ url('/band/create') }}" class="btn btn-primary pull-right">
             Add a new Band
         </a>
     </h2>
@@ -13,7 +13,7 @@
 @section('content')
     @foreach ($bands as $band)
         <div class="cat">
-            <a href="{{ url('bands/'.$band->name) }}">
+            <a href="{{ url('band/'.$band->name) }}">
                 <strong>{{ $band->name }}</strong>
             </a>
         </div>

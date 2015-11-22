@@ -1,24 +1,41 @@
 @extends('layouts.master')
 @section('header')
-    @if (isset($breed))
+
+
+    @if (!isset($bands))
         <a href="{{ url('/') }}">Back to the overview</a>
     @endif
+    @if (isset($bands))
     <h2>
-        @if (isset($band)){{ $band->name }}@endif
-        <a href="{{ url('bands/create') }}" class="btn btn-primary pull-right">
-            Add a new Band
+        {{ $bands->name }}
+
+        <a href="{{ url('band/'.$bands->name.'/album') }}" class="btn btn-primary pull-right">
+            Add a new Album
         </a>
     </h2>
+    <a href="{{ url('band/'.$bands->name.'/edit') }}">
+        <span class="glyphicon glyphicon-edit"></span>
+        Edit
+    </a>
+    <a href="{{ url('band/'.$bands->name.'/delete') }}">
+        <span class="glyphicon glyphicon-trash"></span>
+        Delete
+    </a>
+    @endif
 @stop
 @section('content')
-    @foreach ($albums as $album)
-        <div class="album">
-            <a href="{{ url('bands/'.$album->name) }}">
-                <strong>{{ $album->name }}</strong>
-            </a>
-        </div>
-    @endforeach
-    <a href="{{ url('bands') }}" class="btn btn-primary pull-left">
-        See all bands
-    </a>
+    @if (isset($albums))
+        @foreach ($albums as $album)
+            <div class="album">
+                <a href="{{ url('band/'.$bands->name .'/'.$album->name) }}">
+                    <strong>{{ $album->name }}</strong>
+                </a>
+            </div>
+        @endforeach
+    @endif
+    <h3>
+        <a href="{{ url('band') }}" class="btn btn-primary pull-left">
+            See all bands
+        </a>
+    </h3>
 @stop

@@ -1,13 +1,14 @@
 @extends('layouts.master')
 @section('header')
-    @if (isset($breed))
+    @if (isset($band))
         <a href="{{ url('/') }}">Back to the overview</a>
     @endif
     <h2>
-        All @if (isset($breed)){{ $breed->name }}@endif Cats
+        All @if (isset($band)){{ $band->name }}@endif Cats
         <a href="{{ url('bands/create') }}" class="btn btn-primary pull-right">
             Add a new Band
         </a>
+
     </h2>
 @stop
 @section('content')

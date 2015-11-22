@@ -15,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(VIewFactory $view)
     {
         $view->composer('partials.forms.cat', 'App\Http\Views\Composers\CatFormComposer');
+        //$view->composer('partials.forms.band', 'App\Http\Views\Composers\CatFormComposer');
+
     }
 
     /**

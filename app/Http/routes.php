@@ -67,15 +67,35 @@ Route::get('user/{id}', ['middleware' => ['auth'], function($id) {
 
 //Route::get('/albums', function)
 
+
+
+//Route::get('/bands', 'BandController@allBands');
+Route::resource('band', 'BandController');
+/*
 Route::get('/bands', function(){
     $bands = Vinyl\Band::all();
     return view('bands.index')->with('bands', $bands);
 });
-
-
 
 Route::get('/bands/{name}', function($name){
     $band = Vinyl\Band::with('albums')->whereName($name)->first();
 
     return view('bands.band')->with('band', $band)->with('albums', $band->albums);
 });
+
+Route::get('/create/band', function(){
+   return view('bands.create');
+});
+
+Route::post('create/bands', function(){
+    $band = Vinyl\Band::create(Input::all());
+    return redirect('/bands')->withSuccess('Band' .$band->name .'has been added.');
+});
+
+Route::put('cats/{cat}', function(Vinyl\Cat $cat) {
+
+    $cat->update(Input::all());
+    return redirect('cats/'.$cat->id)
+        ->withSuccess('Cat has been updated.');
+});
+*/
