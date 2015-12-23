@@ -25,7 +25,8 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(Router $router)
     {
         parent::boot($router);
-        $router->model('cat', 'Vinyl\Cat');
+        $router->model('activity_log', 'Vinyl\Activity_log');
+
     }
 
     /**

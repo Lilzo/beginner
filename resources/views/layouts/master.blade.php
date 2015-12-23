@@ -8,6 +8,15 @@
 <body>
 <div class="container">
     <div class="page-header">
+         @if (Auth::check())
+             Welcome, {{ Auth::user()->name }}!
+             <a href="auth/logout">Log out</a>
+             @else
+             Hello, stranger! <a href="/auth/login">Login</a>
+             or <a href="/auth/register">Register</a>.
+         @endif
+    </div>
+    <div class="page-header">
         @yield('header')
     </div>
     @if (count($errors) > 0)

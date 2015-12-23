@@ -1,4 +1,61 @@
 <?php
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
+
+Route::resource('band', 'BandController');
+
+get('/signup', array('as'=>'signup',
+    'uses' => 'Auth\AuthController@getRegister'));
+post('/signup', array('as'=>'signup',
+    'uses' => 'Auth\AuthController@getRegister'));
+
+Route::get('/activity_logs/create', function(){
+    return view('activity_log.create');
+});
+
+Route::get('/activity_logs', function(){
+    //$user = \Vinyl\User::with('activity_logs')->first();
+
+    //$activity_logs = Vinyl\ActivityLog::with('users')->get();
+    $activity_logs= Vinyl\ActivityLog::all();
+    return view('activity_log.index')->with('activity_logs', $activity_logs);
+});
+
+Route::post('/activity_logs/create', function(){
+    //$activity_log = Vinyl\ActivityLog::create(Input::all());
+    //$tl = \Vinyl\User::find(1);
+    $user_id = \Illuminate\Support\Facades\Auth::user()->id;
+
+    $applicant = Input::get('applicant');
+    $area = Input::get('area');
+    $problem = Input::get('problem');
+    $activity = Input::get('activity');
+    $description = Input::get('description');
+    $is_solved = Input::get('is_solved');
+
+    $activity_log = \Vinyl\ActivityLog::create(['user_id' =>$user_id ,
+        'applicant' => $applicant,
+        'area' => $area,
+        'problem' => $problem,
+        'activity'=> $activity,
+        'description' => $description,
+        'is_solved' => $is_solved] );
+    //$activity_logs()->save($activity_log);
+    return redirect('activity_logs')->withSuccess('New log has been added');
+});
+
+
 
 /*
 Route::get('/', function(){
@@ -70,32 +127,4 @@ Route::get('user/{id}', ['middleware' => ['auth'], function($id) {
 
 
 //Route::get('/bands', 'BandController@allBands');
-Route::resource('band', 'BandController');
-/*
-Route::get('/bands', function(){
-    $bands = Vinyl\Band::all();
-    return view('bands.index')->with('bands', $bands);
-});
 
-Route::get('/bands/{name}', function($name){
-    $band = Vinyl\Band::with('albums')->whereName($name)->first();
-
-    return view('bands.band')->with('band', $band)->with('albums', $band->albums);
-});
-
-Route::get('/create/band', function(){
-   return view('bands.create');
-});
-
-Route::post('create/bands', function(){
-    $band = Vinyl\Band::create(Input::all());
-    return redirect('/bands')->withSuccess('Band' .$band->name .'has been added.');
-});
-
-Route::put('cats/{cat}', function(Vinyl\Cat $cat) {
-
-    $cat->update(Input::all());
-    return redirect('cats/'.$cat->id)
-        ->withSuccess('Cat has been updated.');
-});
-*/
