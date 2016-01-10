@@ -20,40 +20,19 @@ get('/signup', array('as'=>'signup',
 post('/signup', array('as'=>'signup',
     'uses' => 'Auth\AuthController@getRegister'));
 
-Route::get('/activity_logs/create', function(){
-    return view('activity_log.create');
+Route::get('/home', function(){
+    return redirect('/activity_logs');
+});
+Route::get('/', function(){
+    return redirect('/activity_logs');
 });
 
-Route::get('/activity_logs', function(){
-    //$user = \Vinyl\User::with('activity_logs')->first();
-
-    //$activity_logs = Vinyl\ActivityLog::with('users')->get();
-    $activity_logs= Vinyl\ActivityLog::all();
-    return view('activity_log.index')->with('activity_logs', $activity_logs);
-});
-
-Route::post('/activity_logs/create', function(){
-    //$activity_log = Vinyl\ActivityLog::create(Input::all());
-    //$tl = \Vinyl\User::find(1);
-    $user_id = \Illuminate\Support\Facades\Auth::user()->id;
-
-    $applicant = Input::get('applicant');
-    $area = Input::get('area');
-    $problem = Input::get('problem');
-    $activity = Input::get('activity');
-    $description = Input::get('description');
-    $is_solved = Input::get('is_solved');
-
-    $activity_log = \Vinyl\ActivityLog::create(['user_id' =>$user_id ,
-        'applicant' => $applicant,
-        'area' => $area,
-        'problem' => $problem,
-        'activity'=> $activity,
-        'description' => $description,
-        'is_solved' => $is_solved] );
-    //$activity_logs()->save($activity_log);
-    return redirect('activity_logs')->withSuccess('New log has been added');
-});
+Route::get('/activity_logs', 'ActivityLogController@getActivityLogs');
+Route::get('/activity_logs/create', 'ActivityLogController@getCreateLog');
+Route::post('/activity_logs/create', 'ActivityLogController@postCreateLog');
+Route::get('/activity_logs/{id}', 'ActivityLogController@getEditLog');
+Route::put('/activity_logs/{id}', 'ActivityLogController@putEditLog');
+Route::get('/activity_logs/{id}/delete', 'ActivityLogController@getDeleteLog');
 
 
 
