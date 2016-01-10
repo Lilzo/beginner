@@ -10,7 +10,7 @@
     <div class="page-header">
          @if (Auth::check())
              Welcome, {{ Auth::user()->name }}!
-             <a href="auth/logout">Log out</a>
+             <a href="/auth/logout">Log out</a>
              @else
              Hello, stranger! <a href="/auth/login">Login</a>
              or <a href="/auth/register">Register</a>.
@@ -31,6 +31,11 @@
     @if (Session::has('success'))
         <div class="alert alert-success">
             {{ Session::get('success') }}
+        </div>
+    @endif
+    @if (Session::has('message'))
+        <div class="alert alert-danger">
+            {{ Session::get('message') }}
         </div>
     @endif
     @yield('content')

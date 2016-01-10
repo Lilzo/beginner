@@ -9,33 +9,40 @@
             </a>
         @endif
     </h2>
+
 @stop
 @section('content')
     <div class="row">
-        <div class="col-md-1"><strong>id</strong></div>
-        <div class="col-md-1"><strong>user_id</strong></div>
-        <div class="col-md-1"><strong>area</strong></div>
-        <div class="col-md-1"><strong>applicant1</strong></div>
-        <div class="col-md-1"><strong>problem</strong></div>
-        <div class="col-md-1"><strong>activity</strong></div>
-        <div class="col-md-1"><strong>description</strong></div>
-        <div class="col-md-1"><strong>is_solved</strong></div>
-        <div class="col-md-1"><strong>created_at</strong></div>
-        <div class="col-md-1"><strong>updated_at</strong></div>
-        <div class="col-md-1"><strong>ended_at</strong></div>
+        <div class="col-md-1"><strong>ID</strong></div>
+        <div class="col-md-1"><strong>User</strong></div>
+        <div class="col-md-1"><strong>Area</strong></div>
+        <div class="col-md-1"><strong>Applicant</strong></div>
+        <div class="col-md-2"><strong>Problem</strong></div>
+        <div class="col-md-2"><strong>Activity</strong></div>
+        <div class="col-md-1"><strong>Description</strong></div>
+        <div class="col-md-1"><strong>Solved</strong></div>
+        <div class="col-md-1"><strong>Created</strong></div>
+        <!--<div class="col-md-1"><strong>Updated</strong></div>-->
+        <div class="col-md-1"><strong>Ended</strong></div>
+        <div class="col-md-1"><strong>Remove</strong></div>
     </div>
     @foreach ($activity_logs as $log)
 
         <div class="row activity_log">
             <div class="col-md-1">
+
                 <a href="{{'activity_logs/'. $log->id }}">
                 <strong>{{ $log->id  }} </strong>
                 </a>
             </div>
             <div class="col-md-1">
+                @if(Auth::id() == $log->user_id)
                 <a href="{{ url('activity_logs/user/'.$log->user_id) }}">
                     <strong>{{ $log->user->name }}</strong>
                 </a>
+                @else
+                    <strong>{{ $log->user->name }}</strong>
+                @endif
             </div>
             <div class="col-md-1">
                 {{ $log->area }}
@@ -43,10 +50,10 @@
             <div class="col-md-1">
                 {{ $log->applicant }}
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 {{ $log->problem }}
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 {{ $log->activity }}
             </div>
             <div class="col-md-1">
@@ -62,13 +69,21 @@
             <div class="col-md-1">
                 {{  date('d.m.Y.', strtotime($log->created_at)) }}
             </div>
-            <div class="col-md-1">
-                {{ date('d.m.Y.', strtotime($log->updated_at)) }}
-            </div>
+            <!--<div class="col-md-1">
+                @if($log->created_at != $log->updated_at)
+                   {{   date('d.m.Y.', strtotime($log->updated_at)) }}
+                @endif
+            </div> -->
             <div class="col-md-1">
                 @if($log->ended_at != '0000-00-00 00:00:00')
                     {{ date('d.m.Y.', strtotime($log->ended_at)) }}
                 @endif
+            </div>
+            <div class="col-md-1">
+                <a href="{{ url('activity_logs/'.$log->id.'/delete') }}">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Delete
+                </a>
             </div>
         </div>
     @endforeach

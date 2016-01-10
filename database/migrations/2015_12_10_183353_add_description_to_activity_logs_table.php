@@ -13,7 +13,7 @@ class AddDescriptionToActivityLogsTable extends Migration
     public function up()
     {
         Schema::table('activity_logs', function (Blueprint $table) {
-            $table->text('description')->after('activity');
+            $table->timestamps()->nullable()->change();
         });
     }
 
