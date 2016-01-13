@@ -3,7 +3,30 @@
 <head>
     <meta charset="utf-8" />
     <title>Furbook</title>
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}">
+    {{--<link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}">--}}
+    <link rel="stylesheet" href="/css/app.css">
+    <script src="/js/app.js"></script>
+    <script>
+
+        $("document").ready(function(){
+            $("#modal").submit(function(e){
+                e.preventDefault();
+                var id = $("data-id").val();
+                alert(id);
+                $.ajax({
+                    type: "POST",
+                    url : "http://clienta.local/tasks/add",
+                    data : dataString,
+                    dataType : "json",
+                    success : function(data){
+
+                    }
+
+                },"json");
+
+            });
+        });//end of document ready function
+    </script
 </head>
 <body>
 <div class="container">

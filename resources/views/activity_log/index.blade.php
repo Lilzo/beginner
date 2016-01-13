@@ -15,16 +15,17 @@
     <div class="row">
         <div class="col-md-1"><strong>ID</strong></div>
         <div class="col-md-1"><strong>User</strong></div>
-        <div class="col-md-1"><strong>Area</strong></div>
-        <div class="col-md-1"><strong>Applicant</strong></div>
+        <!--<div class="col-md-1"><strong>Area</strong></div>
+        <div class="col-md-1"><strong>Applicant</strong></div>-->
         <div class="col-md-2"><strong>Problem</strong></div>
-        <div class="col-md-2"><strong>Activity</strong></div>
-        <div class="col-md-1"><strong>Description</strong></div>
+        <!--<div class="col-md-2"><strong>Activity</strong></div>
+        <div class="col-md-1"><strong>Description</strong></div>-->
         <div class="col-md-1"><strong>Solved</strong></div>
-        <div class="col-md-1"><strong>Created</strong></div>
-        <!--<div class="col-md-1"><strong>Updated</strong></div>-->
-        <div class="col-md-1"><strong>Ended</strong></div>
-        <div class="col-md-1"><strong>Remove</strong></div>
+        <!--<div class="col-md-1"><strong>Created</strong></div>
+        <div class="col-md-1"><strong>Updated</strong></div>
+        <div class="col-md-1"><strong>Ended</strong></div>-->
+        <div class="col-md-1"><strong></strong></div>
+        <div class="col-md-1"><strong></strong></div>
     </div>
     @foreach ($activity_logs as $log)
 
@@ -44,21 +45,21 @@
                     <strong>{{ $log->user->name }}</strong>
                 @endif
             </div>
-            <div class="col-md-1">
+           {{-- <div class="col-md-1">
                 {{ $log->area }}
             </div>
             <div class="col-md-1">
                 {{ $log->applicant }}
-            </div>
+            </div>--}}
             <div class="col-md-2">
                 {{ $log->problem }}
             </div>
-            <div class="col-md-2">
+           {{-- <div class="col-md-2">
                 {{ $log->activity }}
             </div>
             <div class="col-md-1">
                 {{ $log->description }}
-            </div>
+            </div>--}}
             <div class="col-md-1">
                 @if ($log->is_solved == '1')
                     &#10004;
@@ -66,24 +67,47 @@
                     &#10005;
                 @endif
             </div>
-            <div class="col-md-1">
+           {{-- <div class="col-md-1">
                 {{  date('d.m.Y.', strtotime($log->created_at)) }}
             </div>
-            <!--<div class="col-md-1">
+           <div class="col-md-1">
                 @if($log->created_at != $log->updated_at)
                    {{   date('d.m.Y.', strtotime($log->updated_at)) }}
                 @endif
-            </div> -->
+            </div>
             <div class="col-md-1">
                 @if($log->ended_at != '0000-00-00 00:00:00')
                     {{ date('d.m.Y.', strtotime($log->ended_at)) }}
                 @endif
-            </div>
+            </div>--}}
             <div class="col-md-1">
                 <a href="{{ url('activity_logs/'.$log->id.'/delete') }}">
-                    <span class="glyphicon glyphicon-trash"></span>
                     Delete
                 </a>
+            </div>
+            <div class="col-md-1">
+                <button id="modal" type="button" data-id="{{ $log->id }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Previewl</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text in the modal.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     @endforeach

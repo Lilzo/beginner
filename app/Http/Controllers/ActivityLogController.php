@@ -30,6 +30,12 @@ class ActivityLogController extends Controller
         return view('activity_log.index')->with('activity_logs', $activity_logs);
     }
 
+    function postActivityLogs($id)
+    {
+        $activity_logs = ActivityLog::find($id);
+        return view('activity_log.index')->with('activity_logs', $activity_logs);
+    }
+
     function getCreateLog()
     {
         return view('activity_log.create');
@@ -104,4 +110,5 @@ class ActivityLogController extends Controller
         }
 
     }
+
 }

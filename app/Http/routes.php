@@ -28,13 +28,12 @@ Route::get('/', function(){
 });
 
 Route::get('/activity_logs', 'ActivityLogController@getActivityLogs');
+Route::post('/activity_logs', 'ActivityLogController@postActivityLogs');
 Route::get('/activity_logs/create', 'ActivityLogController@getCreateLog');
 Route::post('/activity_logs/create', 'ActivityLogController@postCreateLog');
 Route::get('/activity_logs/{id}', 'ActivityLogController@getEditLog');
 Route::put('/activity_logs/{id}', 'ActivityLogController@putEditLog');
 Route::get('/activity_logs/{id}/delete', 'ActivityLogController@getDeleteLog');
-
-
 
 /*
 Route::get('/', function(){
