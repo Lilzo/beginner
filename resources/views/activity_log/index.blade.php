@@ -86,7 +86,8 @@
                 </a>
             </div>
             <div class="col-md-1">
-                <button id="modal" type="button" data-id="{{ $log->id }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Previewl</button>
+                {{--<button id="modal" type="button" data-id="{{ $log->id }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Previewl</button>--}}
+                <button class="btn btn-info btn-sm" data-toggle="modal" type="button" data-id="{{ $log->id }}">Previewl</button>
             </div>
         </div>
 
@@ -111,4 +112,34 @@
             </div>
         </div>
     @endforeach
+
+    <script type="text/javascript">
+        var main = {};
+         function createModalPreview() {
+            var overlay = $("<div>").addClass("container");
+            var modalDiv = $("<div>").addClass("modal fade").attr("id", "myModal").attr("role", "dialog");
+            var modalDialogDiv = $("<div>").addClass("modal-dialog");
+            overlay.append(modalDiv).append(modalDialogDiv);
+            var modalContentDiv =  $("<div>").addClass("modal-content");
+            var modalHeaderDiv =  $("<div>").addClass("modal-header");
+            var closeButton = $("<button>").addClass('close').attr("data-dismiss", "modal");
+            modalContentDiv.append(modalHeaderDiv).append(closeButton);
+        }
+
+        $(document).ready(function(){
+            $("#theDiv span[data-num]").css('color', 'red');
+            $("button[data-id]").click(function(e){
+                $.ajax({
+                    url: 'activity_logs',
+                    type: "post",
+                    data: {'log_id':$(this).attr("data-id"), '_token' :$('meta[name=_token]').attr('content')},
+                    success: function(data){
+                        console.log(data);
+                        document.write( overlay.append(modalDiv).append(modalDialogDiv));
+                    }
+                });
+            });
+        });
+    </script>
+
 @stop

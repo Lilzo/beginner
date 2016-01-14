@@ -6,27 +6,7 @@
     {{--<link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}">--}}
     <link rel="stylesheet" href="/css/app.css">
     <script src="/js/app.js"></script>
-    <script>
-
-        $("document").ready(function(){
-            $("#modal").submit(function(e){
-                e.preventDefault();
-                var id = $("data-id").val();
-                alert(id);
-                $.ajax({
-                    type: "POST",
-                    url : "http://clienta.local/tasks/add",
-                    data : dataString,
-                    dataType : "json",
-                    success : function(data){
-
-                    }
-
-                },"json");
-
-            });
-        });//end of document ready function
-    </script
+    <meta name="_token" content="{!! csrf_token() !!}"/>
 </head>
 <body>
 <div class="container">

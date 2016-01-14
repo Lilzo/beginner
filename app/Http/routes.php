@@ -28,12 +28,37 @@ Route::get('/', function(){
 });
 
 Route::get('/activity_logs', 'ActivityLogController@getActivityLogs');
-Route::post('/activity_logs', 'ActivityLogController@postActivityLogs');
+/*Route::post('/activity_logs', function(){
+    if (Request::ajax()) {
+        $data = Input::all();
+        print_r($data['log_id']);
+        //$activity_logs = ActivityLog::find($data['log_id']);
+        //print_r($activity_logs);//return dd($activity_logs);
+        //return view('activity_log.index')->with('activity_logs', $activity_logs);
+        die;
+    }
+});*/
+Route::post('/activity_logs', 'ActivityLogController@postActivityLog');
+
 Route::get('/activity_logs/create', 'ActivityLogController@getCreateLog');
 Route::post('/activity_logs/create', 'ActivityLogController@postCreateLog');
 Route::get('/activity_logs/{id}', 'ActivityLogController@getEditLog');
 Route::put('/activity_logs/{id}', 'ActivityLogController@putEditLog');
 Route::get('/activity_logs/{id}/delete', 'ActivityLogController@getDeleteLog');
+
+Route::get('ajaxtest', function() {
+    return View::make('ajaxtest');
+});
+Route::post('/ajaxtest', function(){
+    // Getting all post data
+    if (Request::ajax()) {
+        $data = Input::all();
+        print_r($data);
+        die;
+    } else {
+        print_r('nema');
+    }
+});
 
 /*
 Route::get('/', function(){
