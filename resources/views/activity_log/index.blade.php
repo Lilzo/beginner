@@ -86,31 +86,12 @@
                 </a>
             </div>
             <div class="col-md-1">
-                {{--<button id="modal" type="button" data-id="{{ $log->id }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Previewl</button>--}}
-                <button class="btn btn-info btn-sm" data-toggle="modal" type="button" data-id="{{ $log->id }}">Previewl</button>
+                {{--<button id="modal" type="button" data-id="{{ $log->id }}" class="btn btn-info btn-sm" data-toggle="modal" >Previewl</button>--}}
+                <button class="btn btn-info btn-sm" data-toggle="modal" type="button" data-target="#myModal" data-id="{{ $log->id }}">Previewl</button>
             </div>
         </div>
 
-        <div class="container">
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Modal Header</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Some text in the modal.</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     @endforeach
 
     <script type="text/javascript">
@@ -126,6 +107,28 @@
             modalContentDiv.append(modalHeaderDiv).append(closeButton);
         }
 
+        var t = $('<div class="container">' +
+                                '<div class="modal fade" id="myModal" role="dialog">' +
+                                    '<div class="modal-dialog">' +
+                                        '<div class="modal-content">' +
+                                            '<div class="modal-header">' +
+                                                '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+                                                '<h4 class="modal-title">Modal Header</h4>' +
+                                            '</div>' +
+                                            '<div class="modal-body">' +
+                                                '<p>Some text in the modal.</p>' +
+                                            '</div>' +
+                                            '<div class="modal-footer">' +
+                                                '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>');
+                            //'<div><img src="${url}" />${name}</div>');
+
+
+
         $(document).ready(function(){
             $("#theDiv span[data-num]").css('color', 'red');
             $("button[data-id]").click(function(e){
@@ -134,12 +137,29 @@
                     type: "post",
                     data: {'log_id':$(this).attr("data-id"), '_token' :$('meta[name=_token]').attr('content')},
                     success: function(data){
-                        console.log(data);
-                        document.write( overlay.append(modalDiv).append(modalDialogDiv));
+                        console.log(data['id']);
+                        $(".modal-body").html(data['area']);
                     }
                 });
             });
         });
     </script>
-
+    <div class="container">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                    <div class="modal-body">
+                        <p>Some text in the modal.</p>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 @stop
