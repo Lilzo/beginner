@@ -38,6 +38,7 @@ Route::get('/activity_logs', 'ActivityLogController@getActivityLogs');
         die;
     }
 });*/
+
 Route::post('/activity_logs', 'ActivityLogController@postActivityLog');
 
 Route::get('/activity_logs/create', 'ActivityLogController@getCreateLog');

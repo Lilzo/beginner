@@ -30,17 +30,13 @@ class ActivityLogController extends Controller
         return view('activity_log.index')->with('activity_logs', $activity_logs);
     }
 
-    function postActivityLogs($id)
+    public function postActivityLog(Request $request)
     {
-
-        if (Request::ajax()) {
-            $data = Input::all();
-            print_r($data);
-            die;
+        if ($request->isMethod('post')){
+            $data = Input::only('log_id');
+            $activity_logs = ActivityLog::find($data['log_id']);
+            return $activity_logs;
         }
-        $activity_logs = ActivityLog::find($id);
-        return dd($activity_logs);
-        return view('activity_log.index')->with('activity_logs', $activity_logs);
     }
 
     function getCreateLog()
@@ -118,16 +114,6 @@ class ActivityLogController extends Controller
 
     }
 
-    public function postActivityLog(Request $request)
-    {
-        if ($request->isMethod('post')){
-            $data = Input::only('log_id');
-            $activity_logs = ActivityLog::find($data['log_id']);
-            return $activity_logs;
-        }
-
-        return response()->json(['response' => 'This is get method']);
-    }
 
 
 }

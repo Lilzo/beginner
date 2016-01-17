@@ -90,45 +90,8 @@
                 <button class="btn btn-info btn-sm" data-toggle="modal" type="button" data-target="#myModal" data-id="{{ $log->id }}">Previewl</button>
             </div>
         </div>
-
-
     @endforeach
-
     <script type="text/javascript">
-        var main = {};
-         function createModalPreview() {
-            var overlay = $("<div>").addClass("container");
-            var modalDiv = $("<div>").addClass("modal fade").attr("id", "myModal").attr("role", "dialog");
-            var modalDialogDiv = $("<div>").addClass("modal-dialog");
-            overlay.append(modalDiv).append(modalDialogDiv);
-            var modalContentDiv =  $("<div>").addClass("modal-content");
-            var modalHeaderDiv =  $("<div>").addClass("modal-header");
-            var closeButton = $("<button>").addClass('close').attr("data-dismiss", "modal");
-            modalContentDiv.append(modalHeaderDiv).append(closeButton);
-        }
-
-        var t = $('<div class="container">' +
-                                '<div class="modal fade" id="myModal" role="dialog">' +
-                                    '<div class="modal-dialog">' +
-                                        '<div class="modal-content">' +
-                                            '<div class="modal-header">' +
-                                                '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-                                                '<h4 class="modal-title">Modal Header</h4>' +
-                                            '</div>' +
-                                            '<div class="modal-body">' +
-                                                '<p>Some text in the modal.</p>' +
-                                            '</div>' +
-                                            '<div class="modal-footer">' +
-                                                '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>');
-                            //'<div><img src="${url}" />${name}</div>');
-
-
-
         $(document).ready(function(){
             $("#theDiv span[data-num]").css('color', 'red');
             $("button[data-id]").click(function(e){
@@ -137,8 +100,17 @@
                     type: "post",
                     data: {'log_id':$(this).attr("data-id"), '_token' :$('meta[name=_token]').attr('content')},
                     success: function(data){
-                        console.log(data['id']);
-                        $(".modal-body").html(data['area']);
+                        function addAndDisableValueByID(element, index, array){
+                            var t = document.getElementById(element);
+                            t.value = (data[element]);
+                            if(data[element] != null) {
+                                t.checked = true
+                            }
+                            t.disabled = true;
+                        }
+                        var idNames = ['area', 'applicant', 'problem', 'activity', 'description', 'is_solved'];
+                        idNames.forEach(addAndDisableValueByID);
+                        document.getElementById("submit-log").style.display = 'none';
                     }
                 });
             });
@@ -150,10 +122,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
+                        <h4 class="modal-title">Quick preview</h4>
                         </div>
                     <div class="modal-body">
-                        <p>Some text in the modal.</p>
+                        @include('partials.forms.activity_log')
                         </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

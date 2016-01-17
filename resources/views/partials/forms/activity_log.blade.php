@@ -37,5 +37,5 @@
         {!! Form::checkbox('is_solved', '1') !!}
     </div>
 </div>
-{!! Form::submit('Add log', ['class' => 'btn btn-primary']) !!}
+{!! Form::submit('Submit', ['class' => 'btn btn-primary', "id" => "submit-log"]) !!}
 
