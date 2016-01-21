@@ -26,19 +26,11 @@ Route::get('/home', function(){
 Route::get('/', function(){
     return redirect('/activity_logs');
 });
+Route::get('books', function(){
+    return 'Coming soon (or hopefully never)!';
+});
 
 Route::get('/activity_logs', 'ActivityLogController@getActivityLogs');
-/*Route::post('/activity_logs', function(){
-    if (Request::ajax()) {
-        $data = Input::all();
-        print_r($data['log_id']);
-        //$activity_logs = ActivityLog::find($data['log_id']);
-        //print_r($activity_logs);//return dd($activity_logs);
-        //return view('activity_log.index')->with('activity_logs', $activity_logs);
-        die;
-    }
-});*/
-
 Route::post('/activity_logs', 'ActivityLogController@postActivityLog');
 
 Route::get('/activity_logs/create', 'ActivityLogController@getCreateLog');
