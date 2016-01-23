@@ -26,9 +26,7 @@ Route::get('/home', function(){
 Route::get('/', function(){
     return redirect('/activity_logs');
 });
-Route::get('books', function(){
-    return 'Coming soon (or hopefully never)!';
-});
+Route::get('/books', 'BookController@getBooks');
 
 Route::get('/activity_logs', 'ActivityLogController@getActivityLogs');
 Route::post('/activity_logs', 'ActivityLogController@postActivityLog');
@@ -39,6 +37,7 @@ Route::get('/activity_logs/{id}', 'ActivityLogController@getEditLog');
 Route::put('/activity_logs/{id}', 'ActivityLogController@putEditLog');
 Route::get('/activity_logs/{id}/delete', 'ActivityLogController@getDeleteLog');
 
+/*
 Route::get('ajaxtest', function() {
     return View::make('ajaxtest');
 });
@@ -51,7 +50,7 @@ Route::post('/ajaxtest', function(){
     } else {
         print_r('nema');
     }
-});
+});*/
 
 /*
 Route::get('/', function(){

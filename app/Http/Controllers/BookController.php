@@ -9,5 +9,8 @@ use Vinyl\Http\Controllers\Controller;
 
 class BookController extends Controller
 {
-    //
+    public function getBooks()
+    {
+        return 'Books!';
+    }
 }
