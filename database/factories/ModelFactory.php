@@ -19,3 +19,18 @@ $factory->define(Vinyl\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(Vinyl\Author::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name
+    ];
+});
+
+$factory->define(Vinyl\Book::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'release_year' => 1999,
+        'stock' => 3,
+        'rented' => 1
+    ];
+});

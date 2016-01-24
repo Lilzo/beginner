@@ -8,8 +8,9 @@ class Author extends Model
 {
     protected $table='authors';
     protected $fillable=['author_id', 'name', 'release_year', 'stock', 'rented'];
+    public $timestamps = false;
 
-    public function author(){
+    public function books(){
         return $this->hasMany('Vinyl\Book');
     }
 }
